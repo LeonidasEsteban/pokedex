@@ -1,0 +1,256 @@
+@import "nib"
+vendor-prefixes = o ms moz webkit official
+
+//variables
+rojo = #DD092F
+amarillo = #FFCC00
+verde = #30FA04
+coral = #05FBFB
+azul = #509BFB
+
+radius = 10px
+
+
+body
+    font-family "Source Code Pro", monospace
+
+//mixins top right bottom left
+triangulo(type = '', color = '', top = '', right = '', bottom = '', left = '')
+    border-bottom bottom solid transparent
+    border-left left solid transparent
+    border-right right solid transparent
+    border-top top solid transparent
+    content ""
+    display inline-block
+    if type == 'top'
+        border-top-color  color
+    if type == 'right'
+        border-right-color  color
+    if type == 'bottom'
+        border-bottom-color  color
+    if type == 'left'
+        border-left-color  color
+
+//tests
+.Triangulo
+    &--left
+        triangulo('left', blue, 50px, 0, 50px, 50px);
+    &--leftSingle
+        triangulo('left', green, 50px, 0, 0, 50px);
+    &--top
+        triangulo('top', red, 50px, 50px, 0, 50px);
+    &--right
+        triangulo('right', yellow, 50px, 50px, 0, 0);
+    &--rightSingle
+        triangulo('right', black, 50px, 50px, 50px, 0);
+    &--bottom
+        triangulo('bottom', pink, 50px, 50px, 50px, 50px);
+
+position(top = '', right = '', bottom = '', left = '')
+    position absolute
+    if top
+        top top
+    if right
+        right right
+    if bottom
+        bottom bottom
+    if left
+        left left
+
+//@extends
+.u-clearfix
+    clear both
+    content "\0020"
+    display block
+    height 0
+    visibility hidden
+
+.Pokedex
+    margin 100px auto 0
+    perspective 1000px
+    position relative
+    width 400px
+    background rojo
+    border-radius 10px 0 0 10px
+    &:after
+        @extends .u-clearfix
+    &:hover
+    &.is-active
+        .Pokedex-rightFrontface
+            transform rotateY(0)
+        .Pokedex-rightBackface
+            transform rotateY(180deg)
+    &-window
+        margin 20px
+        border-radius 10px 10px 0 0
+        background #B0B0B0
+        padding 15px
+        border 1px solid black
+
+    &-sprite
+        background white
+        border-radius radius
+        background-position center
+        background-repeat no-repeat
+        height 150px
+        border 2px solid black
+        &.is-fullSize
+            background-size 100%
+    &-search
+        margin 20px 0
+        input
+            background orange
+            border none
+            border 1px solid black
+            border-radius radius
+            color black
+            font-size 20px
+            outline 0
+            padding 10px
+            &:focus
+                border 1px solid black
+            &::-webkit-input-placeholder
+                color white
+    &-description
+        background #30FA04
+        margin 20px
+        padding 20px
+        border-radius radius
+        border 2px solid black
+    &-left
+        background linear-gradient(top ,rojo 80%, rgba(0,0,0, .2))
+        border 1px solid black
+        border-radius 10px 0 0 10px
+        border-right 10px solid black
+        box-sizing border-box
+        float left
+        height 500px
+        width 400px
+    &-leftTop
+        padding 10px 20px
+    &-leftBottom
+        padding 10px 20px
+    &-rightFrontface
+        position(0,0,0px,100%)
+        backface-visibility hidden
+        background rojo
+        border 1px solid black
+        border-left 0
+        border-radius 0 10px 10px 0
+        box-shadow 0 0 10px rgba(black,.3)
+        box-sizing border-box
+        float right
+        height 400px
+        transform rotateY(-180deg)
+        transform-origin left top
+        transition 1s transform
+        width 400px
+    &-rightFrontfaceTop
+        &:before
+            triangulo('left', rojo, 80px, 60px, 0, 80px)
+            position(0, 0, 100%, 0px)
+            margin-left 200px
+
+        &:after
+            position(0, 0, 100%, 0px)
+            background rojo
+            border-top 1px solid black
+            content ""
+            height 80px
+            width 200px
+    &-rightFrontfaceBottom
+        border-radius radius
+        font-size 0
+        margin 0 50px
+
+    &-rightBackface
+        position(0, 0, 0px, 0px)
+        backface-visibility hidden
+        background rojo
+        border 1px solid black
+        border-left 8px solid rgba(black,.3)
+        border-radius 0 0 0 10px
+        box-shadow 0 0 10px rgba(black,.3)
+        box-sizing border-box
+        float right
+        height 400px
+        transform rotateY(0)
+        transform-origin right top
+        transition 1s transform
+        width 400px
+
+        
+        &:after
+            triangulo('left', amarillo, 25px, 25px, 25px, 25px)
+            position(50%, 0, 0, 0px)
+            display block
+            margin 0 auto
+            margin-top -25px
+
+    &-rightBackfaceTop
+        position(0, 0px, 100%, 0)
+        background rojo
+        border-top 1px solid black
+        content ""
+        height 80px
+        width 200px
+        &:before
+            triangulo('right', rojo, 80px, 60px, 0, 0)
+            position(0px, 0px, 0, 0)
+            margin-right 200px
+        &:after
+            position(0px, 0, 0, 0px)
+            background black
+            content ""
+            height 100px
+            transform rotate(37deg)
+            transform-origin left top
+            width 0.5px
+
+
+.Btn
+    border 1px solid black
+    box-shadow -2px 2px 0 rgba(white,.5)
+    cursor pointer
+    display inline-block
+    vertical-align top
+    &:active
+        transform scale(.9)
+    &.is-animated
+        animation .3s isAnimated infinite
+    &--red 
+        background red
+    &--blue
+        background azul
+    &--yellow
+        background amarillo
+    &--green
+        background verde
+    &--coral
+        background coral
+    &--orange
+        background orange
+    &--small
+        width 20px
+        height 20px
+    &--large
+        width 70px
+        height 20px
+    &--medium
+        width 35px
+        height 35px
+    &--big
+        width 50px
+        height 50px
+    &--rounded
+        border-radius 50%
+    &--round
+        border-radius radius
+
+@keyframes isAnimated
+    0%
+        background white
+    50%
+        background #05FBFB
+    100%
+        background white
