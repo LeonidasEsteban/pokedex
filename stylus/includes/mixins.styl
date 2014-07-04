@@ -1,0 +1,42 @@
+//mixins top right bottom left
+triangulo(type = '', color = '', top = '', right = '', bottom = '', left = '')
+    border-bottom bottom solid transparent
+    border-left left solid transparent
+    border-right right solid transparent
+    border-top top solid transparent
+    content ""
+    display inline-block
+    if type == 'top'
+        border-top-color  color
+    if type == 'right'
+        border-right-color  color
+    if type == 'bottom'
+        border-bottom-color  color
+    if type == 'left'
+        border-left-color  color
+
+//tests
+.Triangulo
+    &--left
+        triangulo('left', blue, 50px, 0, 50px, 50px);
+    &--leftSingle
+        triangulo('left', green, 50px, 0, 0, 50px);
+    &--top
+        triangulo('top', red, 50px, 50px, 0, 50px);
+    &--right
+        triangulo('right', yellow, 50px, 50px, 0, 0);
+    &--rightSingle
+        triangulo('right', black, 50px, 50px, 50px, 0);
+    &--bottom
+        triangulo('bottom', pink, 50px, 50px, 50px, 50px);
+
+position(top = '', right = '', bottom = '', left = '')
+    position absolute
+    if top
+        top top
+    if right
+        right right
+    if bottom
+        bottom bottom
+    if left
+        left left
